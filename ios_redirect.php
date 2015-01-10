@@ -55,12 +55,12 @@ function tryAppLoad() {
 	var now = new Date().valueOf();
 	timeout = setTimeout(function () {
 
-		if (new Date().valueOf() - now > 500) {
+		if (new Date().valueOf() - now > 500) { // this delay ensures that the otherURL doesn't get loaded when Safari is brought to the front
 			return;
 		}
 		// window.location = '<?= $otherURL ?>';
 		 window.location.replace('<?= $otherURL ?>');
-	}, 100);  	// enough of a delay is required here to allow Safari to be sent to the background
+	}, 200);  	// enough of a delay is required here to allow Safari to be sent to the background
 			// without enough of a delay, the fallback URL gets opened too.
 	redirect('<?= $appURL ?>');	// use the redirect function to avoid the error "Link can't be opened"
 };
