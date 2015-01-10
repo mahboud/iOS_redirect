@@ -77,3 +77,4 @@ console.log(50);
 	header('Location: ' . $otherURL);
 }
 ?>
+// Enjoy!  -Mahboud Zabetian
