@@ -16,8 +16,8 @@ $isIOS = agent_has('AppleWebKit') && agent_has('Mobile') && (agent_has('iPhone')
 
 
 $appURL = "twitter1://";
-//$otherURL = "http://apple.com"; // an example. A URL that does a similar thing as the app, or
-$otherURL = "itms-apps://itunes.com/apps/twitter"; // could be the app store app url so they can download the app
+//$otherURL = "http://apple.com"; 			// an example. A URL that does a similar thing as the app, or
+$otherURL = "itms-apps://itunes.com/apps/twitter"; 	// could be the app store app url so they can download the app
 
 if ($isIOS) {
 ?>
@@ -39,7 +39,7 @@ var redirect = function (location) {
 };
 
 var timeout;
-
+// this code is left here to show a way to detect Mobile Safari's transition to background
 // function preventPopup() {
 //     clearTimeout(timeout);
 //     timeout = null;
@@ -49,36 +49,24 @@ var timeout;
 // }
 
 function tryAppLoad() {
+// this code is to catch Safari's transition to the background
 //     window.addEventListener('pagehide', preventPopup);
 //     window.addEventListener('blur', preventPopup);
 	var now = new Date().valueOf();
-console.log(10);
-console.log(now);
 	timeout = setTimeout(function () {
 
 		if (new Date().valueOf() - now > 500) {
-//			 window.location.replace("http://lemon.org");
-console.log(30);
-
 			return;
 		}
-// 		if (!window.document.webkitHidden) {
 		// window.location = '<?= $otherURL ?>';
 		 window.location.replace('<?= $otherURL ?>');
-console.log(40);
-// 		}
-	}, 100);
-console.log(0);
-	redirect('<?= $appURL ?>');
+	}, 100);  	// enough of a delay is required here to allow Safari to be sent to the background
+			// without enough of a delay, the fallback URL gets opened too.
+	redirect('<?= $appURL ?>');	// use the redirect function to avoid the error "Link can't be opened"
 };
    
 </script>
 </head>
-<!-- 
-<?
-  print("try app first.");
-?>
- -->
 <body onload="tryAppLoad();">
 </body>
 </html>
